@@ -140,7 +140,7 @@ extern "C" {
     #define STD_FASTCALL
 #endif
 
-#define PRP_CALL PRP_CDECL
+#define STD_CALL STD_CDECL
 
 /* ----  VARADIC ARG ATTR THING ---- */
 
