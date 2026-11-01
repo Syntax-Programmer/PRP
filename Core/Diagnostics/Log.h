@@ -110,11 +110,11 @@ STD_API STD_Rslt STD_CALL DIAG_LogWriteLnFmt(FILE *pFile, const STD_Char8 *pMsg,
 
 typedef enum DIAG_LogLvl {
     DIAG_LOG_LVL_TRACE = 0,
-    DIAG_LOG_LVL_DEBUG = 1,
-    DIAG_LOG_LVL_INFO  = 2,
-    DIAG_LOG_LVL_WARN  = 3,
-    DIAG_LOG_LVL_ERROR = 4,
-    DIAG_LOG_LVL_FATAL = 5,
+    DIAG_LOG_LVL_DEBUG,
+    DIAG_LOG_LVL_INFO,
+    DIAG_LOG_LVL_WARN,
+    DIAG_LOG_LVL_ERROR,
+    DIAG_LOG_LVL_FATAL,
 } DIAG_LogLvl;
 
 /**
