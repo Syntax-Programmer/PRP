@@ -35,6 +35,12 @@ typedef struct DIAG_FailureInfo {
 
 #define DIAG_FAILURE_DEFAULT_LOG_FILE (stderr)
 
+/**
+ * Logs the failure that happened to the DIAG_FAILURE_DEFAULT_LOG_FILE.
+ *
+ * @param pFail_info The info specifying how the failure happened.
+ *                   Must not equal nullptr.
+ */
 STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
 
 /* ----  VERIFY ---- */
