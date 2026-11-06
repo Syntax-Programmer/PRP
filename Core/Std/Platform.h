@@ -42,6 +42,8 @@ extern "C" {
     #define STD_PLATFORM_WINDOW 1
 #elifdef __ANDROID__
     #define STD_PLATFORM_ANDROID 1
+#elifdef __EMSCRIPTEN__
+    #define STD_PLATFORM_WEB 1
 #elifdef __linux__
     #define STD_PLATFORM_LINUX 1
 #elifdef __APPLE__
