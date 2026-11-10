@@ -65,8 +65,10 @@ typedef int32_t STD_Char32;
 /* ---- POINTER AND SIZES ---- */
 
 typedef size_t STD_Size;
-#define PRP_SIZE_MIN ((PRP_size)0)
-#define PRP_SIZE_MAX (SIZE_MAX)
+#define STD_SIZE_MIN ((PRP_size)0)
+#define STD_SIZE_MAX (SIZE_MAX)
+
+typedef char STD_Byte;
 
 typedef nullptr_t STD_NullptrT;
 typedef ptrdiff_t STD_PtrdiffT;

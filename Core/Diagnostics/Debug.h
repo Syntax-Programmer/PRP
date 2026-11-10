@@ -29,8 +29,8 @@ typedef struct DIAG_FailureInfo {
 #define DIAG_FAILURE_INFO_TMPL(failure_type, pFailure_expr, pFailure_msg)      \
     (DIAG_FailureInfo) {                                                       \
         .type = (failure_type), .pExpr = (pFailure_expr),                      \
-        .pMsg = (pFailure_msg), pFile = __FILE__, .pFunc = __func__,           \
-        .line = __LINE__                                                       \
+        .pMsg = (pFailure_msg), .pFile = __FILE__, .pFunc = __func__,          \
+        .line = __LINE__,                                                      \
     }
 
 #define DIAG_FAILURE_DEFAULT_LOG_FILE (stderr)
@@ -50,7 +50,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
         if (!(expr)) {                                                         \
             DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                    \
                 DIAG_FAILURE_TYPE_VERIFY, #expr, nullptr);                     \
-            DIAG_FailureInfo(&info);                                           \
+            DIAG_FailureLog(&info);                                            \
             STD_DEBUG_BREAK();                                                 \
             STD_ABORT();                                                       \
         }                                                                      \
@@ -61,7 +61,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
         if (!(expr)) {                                                         \
             DIAG_FailureInfo info =                                            \
                 DIAG_FAILURE_INFO_TMPL(DIAG_FAILURE_TYPE_VERIFY, #expr, pMsg); \
-            DIAG_FailureInfo(&info);                                           \
+            DIAG_FailureLog(&info);                                            \
             STD_DEBUG_BREAK();                                                 \
             STD_ABORT();                                                       \
         }                                                                      \
@@ -73,7 +73,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
     do {                                                                       \
         DIAG_FailureInfo info =                                                \
             DIAG_FAILURE_INFO_TMPL(DIAG_FAILURE_TYPE_PANIC, nullptr, nullptr); \
-        DIAG_FailureInfo(&info);                                               \
+        DIAG_FailureLog(&info);                                                \
         STD_DEBUG_BREAK();                                                     \
         STD_ABORT();                                                           \
     } while (0)
@@ -82,7 +82,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
     do {                                                                       \
         DIAG_FailureInfo info =                                                \
             DIAG_FAILURE_INFO_TMPL(DIAG_FAILURE_TYPE_PANIC, nullptr, pMsg);    \
-        DIAG_FailureInfo(&info);                                               \
+        DIAG_FailureLog(&info);                                                \
         STD_DEBUG_BREAK();                                                     \
         STD_ABORT();                                                           \
     } while (0)
@@ -93,7 +93,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
     do {                                                                       \
         DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                        \
             DIAG_FAILURE_TYPE_UNIMPLEMENTED, nullptr, nullptr);                \
-        DIAG_FailureInfo(&info);                                               \
+        DIAG_FailureLog(&info);                                                \
         STD_DEBUG_BREAK();                                                     \
     } while (0)
 
@@ -104,7 +104,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
         do {                                                                   \
             DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                    \
                 DIAG_FAILURE_TYPE_UNREACHABLE, nullptr, nullptr);              \
-            DIAG_FailureInfo(&info);                                           \
+            DIAG_FailureLog(&info);                                            \
             STD_DEBUG_BREAK();                                                 \
             STD_ABORT();                                                       \
         } while (0)
@@ -125,7 +125,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
             if (!(expr)) {                                                     \
                 DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                \
                     DIAG_FAILURE_TYPE_ASSERTION, #expr, nullptr);              \
-                DIAG_FailureInfo(&info);                                       \
+                DIAG_FailureLog(&info);                                        \
                 STD_DEBUG_BREAK();                                             \
                 STD_ABORT();                                                   \
             }                                                                  \
@@ -136,7 +136,7 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
             if (!(expr)) {                                                     \
                 DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                \
                     DIAG_FAILURE_TYPE_ASSERTION, #expr, pMsg);                 \
-                DIAG_FailureInfo(&info);                                       \
+                DIAG_FailureLog(&info);                                        \
                 STD_DEBUG_BREAK();                                             \
                 STD_ABORT();                                                   \
             }                                                                  \

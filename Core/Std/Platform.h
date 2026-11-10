@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include <stdlib.h>
+
 /**
  * Compile-time configuration macros recognized by PRP.
  *
