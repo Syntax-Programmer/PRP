@@ -21,6 +21,7 @@ typedef struct ALOC_Arena ALOC_Arena;
  *
  * @return true if valid, false otherwise.
  */
+[[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Bool STD_CALL ALOC_ArenaIsValid(const ALOC_Arena *pArena);
 
 #define ALOC_ArenaIsValidAssert(pArena)                                        \
@@ -39,6 +40,7 @@ STD_API STD_Bool STD_CALL ALOC_ArenaIsValid(const ALOC_Arena *pArena);
  * @return STD_ERR_INV_ARG if arguments are invalid.
  * @return STD_ERR_OOM     if memory allocation fails.
  */
+[[nodiscard("This function can fail, please check result for success.")]]
 STD_API STD_Rslt STD_CALL ALOC_ArenaCreate(STD_Size size, ALOC_Arena **ppArena);
 /**
  * Destroys the arena and nullifies the object pointer.
@@ -60,6 +62,7 @@ STD_API STD_Rslt STD_CALL ALOC_ArenaDestroy(ALOC_Arena **ppArena);
  * @return STD_SUCCESS     on success.
  * @return STD_ERR_INV_ARG if arguments are invalid.
  */
+[[nodiscard("This function can fail, please check result for success.")]]
 STD_API STD_Rslt STD_CALL ALOC_ArenaReset(ALOC_Arena *pArena);
 
 /**
@@ -79,6 +82,7 @@ STD_API STD_Rslt STD_CALL ALOC_ArenaReset(ALOC_Arena *pArena);
  * @return STD_ERR_RES_EXHAUSTED if arena can't accommodate the asked allocation
  *                               size.
  */
+[[nodiscard("This function can fail, please check result for success.")]]
 STD_API STD_Rslt STD_CALL ALOC_ArenaAlloc(ALOC_Arena *pArena, STD_Size size,
                                           STD_Bool zeroed, void **ppDest);
 /**
@@ -101,6 +105,7 @@ STD_API STD_Rslt STD_CALL ALOC_ArenaAlloc(ALOC_Arena *pArena, STD_Size size,
  * @return STD_ERR_RES_EXHAUSTED if arena can't accommodate the asked allocation
  *                               size.
  */
+[[nodiscard("This function can fail, please check result for success.")]]
 STD_API STD_Rslt STD_CALL ALOC_ArenaAllocMany(ALOC_Arena *pArena, STD_Size size,
                                               STD_Bool zeroed, STD_Size count,
                                               void **ppDest);
@@ -123,6 +128,7 @@ STD_API STD_Rslt STD_CALL ALOC_ArenaAllocMany(ALOC_Arena *pArena, STD_Size size,
  * @return STD_ERR_RES_EXHAUSTED if arena can't accommodate the asked allocation
  *                               size.
  */
+[[nodiscard("This function can fail, please check result for success.")]]
 STD_API STD_Rslt STD_CALL ALOC_ArenaAllocAligned(ALOC_Arena *pArena,
                                                  STD_Size size, STD_Size align,
                                                  STD_Bool zeroed,
@@ -149,6 +155,7 @@ STD_API STD_Rslt STD_CALL ALOC_ArenaAllocAligned(ALOC_Arena *pArena,
  * @return STD_ERR_RES_EXHAUSTED if arena can't accommodate the asked allocation
  *                               size.
  */
+[[nodiscard("This function can fail, please check result for success.")]]
 STD_API STD_Rslt STD_CALL
 ALOC_ArenaAllocManyAligned(ALOC_Arena *pArena, STD_Size size, STD_Size align,
                            STD_Bool zeroed, STD_Size count, void **ppDest);
@@ -158,6 +165,7 @@ ALOC_ArenaAllocManyAligned(ALOC_Arena *pArena, STD_Size size, STD_Size align,
  *
  * @return The max size of arena's memory block.
  */
+[[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Size STD_CALL ALOC_ArenaMaxBlockSize(void);
 
 /**
@@ -168,6 +176,7 @@ STD_API STD_Size STD_CALL ALOC_ArenaMaxBlockSize(void);
  *
  * @return The free space in the arena.
  */
+[[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Size STD_CALL ALOC_ArenaGetFreeSpace(const ALOC_Arena *pArena);
 /**
  * Checks if the given arena is completely empty.
@@ -177,6 +186,7 @@ STD_API STD_Size STD_CALL ALOC_ArenaGetFreeSpace(const ALOC_Arena *pArena);
  *
  * @return true if empty, false otherwise.
  */
+[[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Bool STD_CALL ALOC_ArenaIsEmpty(const ALOC_Arena *pArena);
 /**
  * Checks if the given arena is completely full.
@@ -186,6 +196,7 @@ STD_API STD_Bool STD_CALL ALOC_ArenaIsEmpty(const ALOC_Arena *pArena);
  *
  * @return true if full, false otherwise.
  */
+[[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Bool STD_CALL ALOC_ArenaIsFull(const ALOC_Arena *pArena);
 /**
  * Checks if the given memory pointer is owned by the arena.
@@ -197,6 +208,7 @@ STD_API STD_Bool STD_CALL ALOC_ArenaIsFull(const ALOC_Arena *pArena);
  *
  * @return true if pBlock belongs to the arena, false otherwise.
  */
+[[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Bool STD_CALL ALOC_ArenaIsOwnedByArena(const ALOC_Arena *pArena,
                                                    const void       *pBlock);
 
