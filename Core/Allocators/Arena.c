@@ -1,8 +1,8 @@
 #include "Core/Allocators/Arena.h"
-1 #include "Arena.h"
+#include "Arena.h"
 #include <string.h>
 
-    struct ALOC_Arena {
+struct ALOC_Arena {
     STD_Size size;
     STD_Size ofs;
     STD_Byte pBlock[];
