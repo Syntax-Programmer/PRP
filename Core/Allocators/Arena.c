@@ -1,7 +1,8 @@
-#include "Arena.h"
+#include "Core/Allocators/Arena.h"
+1 #include "Arena.h"
 #include <string.h>
 
-struct ALOC_Arena {
+    struct ALOC_Arena {
     STD_Size size;
     STD_Size ofs;
     STD_Byte pBlock[];
@@ -50,6 +51,8 @@ STD_API STD_Rslt STD_CALL ALOC_ArenaReset(ALOC_Arena *pArena) {
     }
 
     pArena->ofs = 0;
+
+    return STD_SUCCESS;
 }
 
 STD_API STD_Rslt STD_CALL ALOC_ArenaAlloc(ALOC_Arena *pArena, STD_Size size,
@@ -161,26 +164,26 @@ STD_API STD_Size STD_CALL ALOC_ArenaMaxBlockSize(void) {
 }
 
 STD_API STD_Size STD_CALL ALOC_ArenaGetFreeSpace(const ALOC_Arena *pArena) {
-    DIAG_Verify(pArena != nullptr);
+    DIAG_Verify(ALOC_ArenaIsValid(pArena));
 
     return pArena->size - pArena->ofs;
 }
 
 STD_API STD_Bool STD_CALL ALOC_ArenaIsEmpty(const ALOC_Arena *pArena) {
-    DIAG_Verify(pArena != nullptr);
+    DIAG_Verify(ALOC_ArenaIsValid(pArena));
 
     return pArena->ofs == 0;
 }
 
 STD_API STD_Bool STD_CALL ALOC_ArenaIsFull(const ALOC_Arena *pArena) {
-    DIAG_Verify(pArena != nullptr);
+    DIAG_Verify(ALOC_ArenaIsValid(pArena));
 
     return pArena->size == pArena->ofs;
 }
 
 STD_API STD_Bool STD_CALL ALOC_ArenaIsOwnedByArena(const ALOC_Arena *pArena,
                                                    const void       *pBlock) {
-    DIAG_Verify(pArena != nullptr);
+    DIAG_Verify(ALOC_ArenaIsValid(pArena));
     DIAG_Verify(pBlock != nullptr);
 
     return (STD_Byte *)pBlock >= pArena->pBlock &&

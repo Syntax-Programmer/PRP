@@ -97,18 +97,15 @@ STD_API void STD_CALL DIAG_FailureLog(const DIAG_FailureInfo *pFail_info);
         STD_DEBUG_BREAK();                                                     \
     } while (0)
 
-#ifdef STD_COMPILE_MODE_RELEASE
-    #define DIAG_Unreachable() STD_UNREACHABLE()
-#elifdef STD_COMPILE_MODE_DEBUG
-    #define DIAG_Unreachable()                                                 \
-        do {                                                                   \
-            DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                    \
-                DIAG_FAILURE_TYPE_UNREACHABLE, nullptr, nullptr);              \
-            DIAG_FailureLog(&info);                                            \
-            STD_DEBUG_BREAK();                                                 \
-            STD_ABORT();                                                       \
-        } while (0)
-#endif
+#define DIAG_Unreachable()                                                     \
+    do {                                                                       \
+        DIAG_FailureInfo info = DIAG_FAILURE_INFO_TMPL(                        \
+            DIAG_FAILURE_TYPE_UNREACHABLE, nullptr, nullptr);                  \
+        DIAG_FailureLog(&info);                                                \
+        STD_DEBUG_BREAK();                                                     \
+        STD_ABORT();                                                           \
+        STD_UNREACHABLE();                                                     \
+    } while (0)
 
 /* ----  STATIC ASSERT ---- */
 
