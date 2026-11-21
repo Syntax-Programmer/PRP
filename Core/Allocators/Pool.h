@@ -126,16 +126,16 @@ STD_API STD_Rslt STD_CALL ALOC_PoolAllocMany(ALOC_Pool *pPool, STD_Size count,
 /**
  * Frees the given slot in the pool.
  *
- * @param pPool  The pool object to allocate from.
- *               Must be a valid pool object.
- * @param pBlock The slot to be free.
- *               Must not equal nullptr and be a valid slot ptr inside the pool.
+ * @param pPool The pool object to allocate from.
+ *              Must be a valid pool object.
+ * @param pSlot The slot to be free.
+ *              Must not equal nullptr and be a valid slot ptr inside the pool.
  *
  * @return STD_SUCCESS     on success.
  * @return STD_ERR_INV_ARG if arguments are invalid.
  */
 [[nodiscard("This function can fail, please check result for success.")]]
-STD_API STD_Rslt STD_CALL ALOC_PoolFree(ALOC_Pool *pPool, void *pBlock);
+STD_API STD_Rslt STD_CALL ALOC_PoolFree(ALOC_Pool *pPool, void *pSlot);
 
 /**
  * Gets the max cap a pool can have of the given slot_size.
@@ -210,15 +210,16 @@ STD_API STD_Bool STD_CALL ALOC_PoolIsFull(const ALOC_Pool *pPool);
 /**
  * Checks if the given pointer is a valid pool slot pointer.
  *
- * @param pPool  The pool object to check into.
- *               Must be a valid pool object.
- * @param pBlock The slot to check.
+ * @param pPool The pool object to check into.
+ *              Must be a valid pool object.
+ * @param pSlot The slot to check.
+ *              Must not equal nullptr.
  *
- * @return true if given pointer is a slot in the give pool, false otherwise.
+ * @return true if given pointer is a slot in the given pool, false otherwise.
  */
 [[nodiscard("Must not call functions when you don't use their result.")]]
 STD_API STD_Bool STD_CALL ALOC_PoolIsOwnedByPool(const ALOC_Pool *pPool,
-                                                 const void      *pBlock);
+                                                 const void      *pSlot);
 
 #ifdef __cplusplus
 }

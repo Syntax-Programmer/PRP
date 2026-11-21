@@ -10,7 +10,7 @@ struct ALOC_Pool {
     STD_Size  free_count;
     STD_Size  slot_size;
     STD_Byte *pFree_list;
-    STD_Byte  pBlock[];
+    STD_Byte  pSlots[];
 };
 
 #define PaddedSlotSize(slot_size)                                              \
@@ -24,7 +24,7 @@ STD_API STD_Bool STD_CALL ALOC_PoolIsValid(const ALOC_Pool *pPool) {
 
 #define MakeFreeSlotFreeList(pPool)                                            \
     do {                                                                       \
-        STD_Byte *pCurr     = (pPool)->pBlock;                                 \
+        STD_Byte *pCurr     = (pPool)->pSlots;                                 \
         (pPool)->pFree_list = pCurr;                                           \
         for (STD_Size i = 0; i < (pPool)->cap - 1; i++) {                      \
             *((STD_Byte **)pCurr)  = pCurr + (pPool)->slot_size;               \
@@ -163,19 +163,19 @@ STD_API STD_Rslt STD_CALL ALOC_PoolAllocMany(ALOC_Pool *pPool, STD_Size count,
     return STD_SUCCESS;
 }
 
-STD_API STD_Rslt STD_CALL ALOC_PoolFree(ALOC_Pool *pPool, void *pBlock) {
-    if (!ALOC_PoolIsValid(pPool) || !pBlock) {
+STD_API STD_Rslt STD_CALL ALOC_PoolFree(ALOC_Pool *pPool, void *pSlot) {
+    if (!ALOC_PoolIsValid(pPool) || !pSlot) {
         return STD_ERR_INV_ARG;
     }
-    STD_Byte *ptr = pBlock;
-    if (ptr < pPool->pBlock ||
-        ptr >= pPool->pBlock + (pPool->cap * pPool->slot_size) ||
-        ((ptr - pPool->pBlock) % pPool->slot_size) != 0) {
+    STD_Byte *ptr = pSlot;
+    if (ptr < pPool->pSlots ||
+        ptr >= pPool->pSlots + (pPool->cap * pPool->slot_size) ||
+        ((ptr - pPool->pSlots) % pPool->slot_size) != 0) {
         return STD_ERR_INV_ARG;
     }
 
-    *((STD_Byte **)pBlock) = pPool->pFree_list;
-    pPool->pFree_list      = pBlock;
+    *((STD_Byte **)pSlot) = pPool->pFree_list;
+    pPool->pFree_list      = pSlot;
     pPool->free_count--;
 
     return STD_SUCCESS;
@@ -226,13 +226,13 @@ STD_API STD_Bool STD_CALL ALOC_PoolIsFull(const ALOC_Pool *pPool) {
 }
 
 STD_API STD_Bool STD_CALL ALOC_PoolIsOwnedByPool(const ALOC_Pool *pPool,
-                                                 const void      *pBlock) {
+                                                 const void      *pSlot) {
     DIAG_Verify(ALOC_PoolIsValid(pPool));
-    DIAG_Verify(pBlock != nullptr);
+    DIAG_Verify(pSlot != nullptr);
 
-    const STD_Byte *ptr = pBlock;
+    const STD_Byte *ptr = pSlot;
 
-    return ptr < pPool->pBlock ||
-           ptr >= pPool->pBlock + (pPool->cap * pPool->slot_size) ||
-           ((ptr - pPool->pBlock) % pPool->slot_size) != 0;
+    return ptr < pPool->pSlots ||
+           ptr >= pPool->pSlots + (pPool->cap * pPool->slot_size) ||
+           ((ptr - pPool->pSlots) % pPool->slot_size) != 0;
 }
