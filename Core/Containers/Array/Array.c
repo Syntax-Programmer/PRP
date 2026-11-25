@@ -26,18 +26,19 @@ STD_API STD_Rslt STD_CALL CONT_ArrayCreate(STD_Size slot_size, STD_Size cap,
         return STD_ERR_INV_ARG;
     }
 
-    CONT_Array *pArr = malloc(sizeof(CONT_Array));
-    if (!pArr) {
+    *ppArr = malloc(sizeof(CONT_Array));
+    if (!(*ppArr)) {
         return STD_ERR_OOM;
     }
-    pArr->pSlots = malloc(slot_size * cap);
-    if (!pArr->pSlots) {
-        free(pArr);
+    (*ppArr)->pSlots = malloc(slot_size * cap);
+    if (!(*ppArr)->pSlots) {
+        free(*ppArr);
+        *ppArr = nullptr;
         return STD_ERR_OOM;
     }
-    pArr->slot_size = slot_size;
-    pArr->cap       = cap;
-    pArr->len       = 0;
+    (*ppArr)->slot_size = slot_size;
+    (*ppArr)->cap       = cap;
+    (*ppArr)->len       = 0;
 
     return STD_SUCCESS;
 }

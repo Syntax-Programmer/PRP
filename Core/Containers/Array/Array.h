@@ -108,8 +108,8 @@ STD_API STD_Rslt STD_CALL CONT_ArrayCreateFilled(STD_Size     slot_size,
  * Destroys the array and nullifies the object pointer.
  *
  * @param ppArr Pointer to the array object to delete.
- *             Must not equal nullptr.
- *             Its dereference must not equal nullptr.
+ *              Must not equal nullptr.
+ *              Its dereference must not equal nullptr.
  *
  * @return STD_SUCCESS     on success.
  * @return STD_ERR_INV_ARG if arguments are invalid.
