@@ -1,7 +1,4 @@
 #include "Bitmap.h"
-#include "Core/Diagnostics/Debug.h"
-#include "Core/Std/Defs.h"
-#include "Core/Std/Types.h"
 #include <stdbit.h>
 #include <string.h>
 
@@ -959,7 +956,8 @@ STD_API STD_Rslt STD_CALL CONT_BitmapXor(CONT_Bitmap       *pBmp1,
 
 // }
 
-// STD_API STD_Rslt STD_CALL CONT_BitmapLShift(CONT_Bitmap *pBmp, STD_Size ofs) {
+// STD_API STD_Rslt STD_CALL CONT_BitmapLShift(CONT_Bitmap *pBmp, STD_Size ofs)
+// {
 //     if (!CONT_BitmapIsValid(pBmp)) {
 //         return STD_ERR_INV_ARG;
 //     }
@@ -988,7 +986,8 @@ STD_API STD_Rslt STD_CALL CONT_BitmapXor(CONT_Bitmap       *pBmp1,
 //     DIAG_Unimplemented();
 // }
 
-// STD_API STD_Rslt STD_CALL CONT_BitmapRShift(CONT_Bitmap *pBmp, STD_Size ofs) {
+// STD_API STD_Rslt STD_CALL CONT_BitmapRShift(CONT_Bitmap *pBmp, STD_Size ofs)
+// {
 //     if (!CONT_BitmapIsValid(pBmp)) {
 //         return STD_ERR_INV_ARG;
 //     }
