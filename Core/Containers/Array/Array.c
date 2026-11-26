@@ -238,9 +238,9 @@ STD_API STD_Bool STD_CALL CONT_ArrayIsOwnedByArray(const CONT_Array *pArr,
 
     const STD_Byte *ptr = pSlot;
 
-    return ptr < pArr->pSlots ||
-           ptr >= pArr->pSlots + (pArr->cap * pArr->slot_size) ||
-           ((ptr - pArr->pSlots) % pArr->slot_size) != 0;
+    return ptr <= pArr->pSlots &&
+           ptr > pArr->pSlots + (pArr->cap * pArr->slot_size) &&
+           ((ptr - pArr->pSlots) % pArr->slot_size);
 }
 
 STD_API const void *STD_CALL CONT_ArrayRaw(const CONT_Array *pArr) {

@@ -175,7 +175,7 @@ STD_API STD_Rslt STD_CALL ALOC_PoolFree(ALOC_Pool *pPool, void *pSlot) {
     }
 
     *((STD_Byte **)pSlot) = pPool->pFree_list;
-    pPool->pFree_list      = pSlot;
+    pPool->pFree_list     = pSlot;
     pPool->free_count--;
 
     return STD_SUCCESS;
@@ -232,7 +232,7 @@ STD_API STD_Bool STD_CALL ALOC_PoolIsOwnedByPool(const ALOC_Pool *pPool,
 
     const STD_Byte *ptr = pSlot;
 
-    return ptr < pPool->pSlots ||
-           ptr >= pPool->pSlots + (pPool->cap * pPool->slot_size) ||
-           ((ptr - pPool->pSlots) % pPool->slot_size) != 0;
+    return ptr >= pPool->pSlots &&
+           ptr < pPool->pSlots + (pPool->cap * pPool->slot_size) &&
+           ((ptr - pPool->pSlots) % pPool->slot_size);
 }
